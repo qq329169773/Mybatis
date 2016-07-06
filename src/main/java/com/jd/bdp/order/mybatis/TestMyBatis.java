@@ -29,7 +29,9 @@ public class TestMyBatis {
 	public static void main(String[] args) {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-  			Users user = (Users) session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
+  			//Users user = (Users) session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
+			UserIface userIface = session.getMapper(UserIface.class);
+			Users user = userIface.selectUserByID(1);
 			System.out.println(user.getUser_name() + " "+ user.getSale());
  		} finally {
 			session.close();
