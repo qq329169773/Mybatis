@@ -3,7 +3,33 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jd.bdp.order.mybatis.UserIface">
-    <select id="selectUserByID" parameterType="int" resultType="User">
-        select * from `users` where user_id = #{id}
-    </select>
+	<select id="selectUserByID" parameterType="int" resultType="User">
+		select * from users where user_id = #{id}
+	</select>
+
+	<select id="mutipleSelect" resultType="User" parameterType="User">
+		select * from users as u
+		<where>
+			<if test="depart != null and depart != 'java'">
+				and u.depart = #{depart}
+			</if>
+			<if test="sale != null">
+				and u.sale > #{sale}
+			</if>
+		</where>
+	</select>
+
+
+	<insert id="insertUserSingle" useGeneratedKeys="true" keyColumn="user_id"
+		keyProperty="user_id">
+		insert users(user_name,sale,depart) values (#{user_name},#{sale},#{depart});
+	</insert>
+	<!--  如果是参数是Map类型的那么需要把Map里面设置一个KEY为list，如果不是Map直接是List也是可以的 -->
+	<insert id="insertUserList" parameterType="map"
+		useGeneratedKeys="true" keyColumn="user_id" keyProperty="user_id">
+		insert users(user_name,sale,depart) values
+		<foreach item="item" collection="list" separator=",">
+			(#{item.user_name}, #{item.sale},#{item.depart})
+		</foreach>
+	</insert>
 </mapper>
