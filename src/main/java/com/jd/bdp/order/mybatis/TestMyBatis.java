@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
 import org.apache.ibatis.io.Resources;
@@ -24,8 +25,10 @@ public class TestMyBatis {
 	
 	static {
 		try {
-			PropertyConfigurator.configure("D:/gitresource/Mybatis/src/main/resources/log4j.properties");
-			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+			Properties log4jResource = new Properties();
+			log4jResource.load(Resources.getResourceAsReader("log4j.properties"));
+			PropertyConfigurator.configure(log4jResource);
+ 			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 			reader = Resources.getResourceAsReader("mybatis.xml");
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		} catch (Exception e) {
@@ -42,22 +45,32 @@ public class TestMyBatis {
 		try {
   			//Users user = (Users) session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
 			UserIface userIface = session.getMapper(UserIface.class);
-			List<Users> insertUsers = new ArrayList<Users>();
-			for(int index = 0 ; index < 2 ; index++ ){
-				Users temp = new Users();
-				temp.setDepart("Java");
-				temp.setSale(12);
-				temp.setUser_age(1);
-				temp.setUser_name("zhangrui");
-				insertUsers.add(temp);
-			}
-			Map<String, Object> insertParams =new HashMap<String, Object>();
-			insertParams.put("list", insertUsers);
-			userIface.insertUserList(insertParams);
-   		} finally {
+			Users user = new Users();
+			user.setDepart("java");
+			user.setDescr("zhangruinihao");
+			user.setSale(3);
+			user.setEmail("33434@.qq.com");
+			user.setUser_age(3);
+			userIface.insertUserSingle(user );
+		} finally {
    			session.commit();
 			session.close();
 		}
+	}
+
+	private static void insertList(UserIface userIface) {
+		List<Users> insertUsers = new ArrayList<Users>();
+		for(int index = 0 ; index < 2 ; index++ ){
+			Users temp = new Users();
+			temp.setDepart("Java");
+			temp.setSale(12);
+			temp.setUser_age(1);
+			temp.setUser_name("zhangrui");
+			insertUsers.add(temp);
+		}
+		Map<String, Object> insertParams =new HashMap<String, Object>();
+		insertParams.put("list", insertUsers);
+		userIface.insertUserList(insertParams);
 	}
 
 	private static void insertSingleUser(UserIface userIface) {

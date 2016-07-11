@@ -22,6 +22,11 @@ public class Users {
 	 * 邮箱
 	 */
 	private String depart;
+	
+	private String descr ;
+	
+	private String email ;
+	
 	public Integer getUser_id() {
 		return user_id;
 	}
@@ -52,7 +57,18 @@ public class Users {
 	public void setDepart(String depart) {
 		this.depart = depart;
 	}
-
-
+	public String getDescr() {
+		return descr;
+	}
+	public void setDescr(String descr) {
+		this.descr = descr;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }
