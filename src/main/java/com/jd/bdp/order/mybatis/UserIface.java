@@ -1,14 +1,11 @@
 package com.jd.bdp.order.mybatis;
 
  
+ 
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
 
 import com.jd.bdp.order.contoller.Users;
 
@@ -16,7 +13,7 @@ public interface UserIface {
 
 	public Users selectUserByID(int id);
 	
-	public List<Users> selectAllUsers();
+ 	public List<Users> selectAllUsers();
 	
 	public List<Users> selectUserName(String userName);
 	
@@ -29,4 +26,12 @@ public interface UserIface {
 	 
  	public Users selectUserByAge(Map<String, Object> hashMap) ;
 	
+ 	public List<Users> mutipleSelect(Users users);
+	
+	public void insertUserList(Map<String, Object>  insertParams) ;
+
+	public void insertUserSingle(Users user );
+
 }
+
+

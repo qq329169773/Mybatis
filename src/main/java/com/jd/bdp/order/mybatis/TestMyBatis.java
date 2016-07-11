@@ -1,25 +1,31 @@
 package com.jd.bdp.order.mybatis;
 
 import java.io.Reader;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-import org.apache.commons.collections.map.HashedMap;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import com.jd.bdp.order.contoller.Users;
 
 public class TestMyBatis {
+	
+	private static Logger logger = Logger.getLogger(TestMyBatis.class);
 	private static SqlSessionFactory sqlSessionFactory;
 	private static Reader reader;
-
+	
 	static {
 		try {
+			PropertyConfigurator.configure("D:/gitresource/Mybatis/src/main/resources/log4j.properties");
+			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 			reader = Resources.getResourceAsReader("mybatis.xml");
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		} catch (Exception e) {
@@ -30,36 +36,44 @@ public class TestMyBatis {
 	public static SqlSessionFactory getSession() {
 		return sqlSessionFactory;
 	}
+
 	public static void main(String[] args) {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			/*Object o = session.selectList("com.jd.bdp.order.mybatis.UserIface.selectAllUsers");
- 			System.out.println(o);
-			Users user = (Users) session.selectOne("com.jd.bdp.order.mybatis.UserIface.selectUserByID", 1);*/
-			UserIface iface  = session.getMapper(UserIface.class);
-			 
-			/*HashMap<String,Object>  param = new HashMap<String,Object>();
-			param.put("user_id", "1");
-			param.put("depart", "java");
-			System.out.println(iface.selectUserByIdAndDepart(param));*/
-		/*	HashMap<String,Object>  param = new HashMap<String,Object>();
-			param.put("user_name", "zhangsan");
-			param.put("user_age", "9");
-			Object o = session.selectOne("com.jd.bdp.order.mybatis.UserIface.selectUserByAge",param);
-			System.out.println(o );*/
-			testInsert(session);
-		} finally {
+  			//Users user = (Users) session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
+			UserIface userIface = session.getMapper(UserIface.class);
+			List<Users> insertUsers = new ArrayList<Users>();
+			for(int index = 0 ; index < 2 ; index++ ){
+				Users temp = new Users();
+				temp.setDepart("Java");
+				temp.setSale(12);
+				temp.setUser_age(1);
+				temp.setUser_name("zhangrui");
+				insertUsers.add(temp);
+			}
+			Map<String, Object> insertParams =new HashMap<String, Object>();
+			insertParams.put("list", insertUsers);
+			userIface.insertUserList(insertParams);
+   		} finally {
+   			session.commit();
 			session.close();
 		}
 	}
-	private static void testInsert(SqlSession session ){
-		Users users = new Users();
-		users.setDepart("C#");
-		users.setSale(12);
-		users.setUser_age(1);
-		users.setUser_name("liuxinya");
-		int count = session.insert("com.jd.bdp.order.mybatis.UserIface.insertMutipleUser",Arrays.asList(users,users) );
-		System.out.println(count   + "  : " + users.getUser_id());
-		session.commit();
+
+	private static void insertSingleUser(UserIface userIface) {
+		Users temp = new Users();
+		temp.setSale(67);
+		temp.setUser_age(new Random().nextInt(10));
+		temp.setUser_name("zhangsan" + new Random().nextInt(100));
+		//temp.setDepart("JVA");
+  		userIface.insertUserSingle(temp);
+		System.out.println("Insert UserId : " + temp.getUser_id());
+	}
+
+	private static void mytipleSelect(UserIface userIface) {
+		Users user = new Users();
+		user.setDepart("C#");
+		user.setSale(5);
+		System.out.println(userIface.mutipleSelect(user));
 	}
 }
