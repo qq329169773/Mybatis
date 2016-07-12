@@ -38,8 +38,14 @@ public interface UserIface {
 	
 	public int updateUsers(@Param("user_id") int userId , @Param("user")  Users users) ;
 	
+ 	public UserAddress getAddressById(int address_id);
+ 	
+ 	@Select("select * from user_address where address_id = #{address_id}")
+ 	public UserAddress getAddressByIdSpring(@Param("address_id") int address_id);
+ 	
+ 	@Select("select * from users where user_id = #{user_id}")
+ 	public Users getUserByIdSpring(@Param("user_id") int user_id);
 
-	public UserAddress getAddressById(int address_id);
 }
 
 
