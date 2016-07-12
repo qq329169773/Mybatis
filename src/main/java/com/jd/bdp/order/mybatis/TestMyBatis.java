@@ -45,17 +45,38 @@ public class TestMyBatis {
 		try {
   			//Users user = (Users) session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
 			UserIface userIface = session.getMapper(UserIface.class);
-			Users user = new Users();
-			user.setDepart("java");
-			user.setDescr("zhangruinihao");
-			user.setSale(3);
-			user.setEmail("33434@.qq.com");
-			user.setUser_age(3);
-			userIface.insertUserSingle(user );
+			 
+			Users users = new Users();
+			users.setSale(12);
+			users.setUser_name("zhangrui1111");
+			int count = userIface.updateUsers(1, users);
+			System.out.println("count :" + count);
 		} finally {
    			session.commit();
 			session.close();
 		}
+	}
+
+	private static void getMutipleSelect(UserIface userIface) {
+		List<Users> userList = userIface.getUserBySaleDepart(0, "Java");
+		System.out.println("size : " + userList.size() );
+	}
+
+	private static void getUserWithArticles(UserIface userIface) {
+		Users users  = userIface.getUserWithArticle(1);
+		System.out.println(users.getUser_name());
+	}
+
+	private static void contentAddressObject(UserIface userIface) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("user_id" , 1) ;
+		params.put("address_type" , 1) ;
+		params.put("work_address_type" , 2) ;
+		Users user = userIface.getUserWithAddress(1, 1, 2);
+		System.out.println(user.getUserAddress().getAddressDetail() + " address Id :" + user.getUserAddress().getAddressId());
+		System.out.println(user.getWorkAddress().getAddressType() + " work address Id :" + user.getWorkAddress().getAddressId());
+		System.out.println(userIface.getAddressById(1).getAddressDetail());
+		System.out.println("userName : " + user.getUser_name());
 	}
 
 	private static void insertList(UserIface userIface) {
