@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jd.bdp.order.contoller.Users;
-import com.jd.bdp.order.mybatis.UserIface;
+import com.jd.bdp.order.mybatis.UserDaoIface;
 
 public class TestMyBatis {
 
@@ -45,7 +45,7 @@ public class TestMyBatis {
 	
 	@Test
 	public void test() {
-		UserIface userIface = session.getMapper(UserIface.class);
+		UserDaoIface userIface = session.getMapper(UserDaoIface.class);
 		Users user = userIface.selectUserByID(1);
 		System.out.println(user.getUser_name() + " "+ user.getSale());
 	}

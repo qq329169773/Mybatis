@@ -44,7 +44,7 @@ public class TestMyBatis {
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
   			//Users user = (Users) session.selectOne("com.yihaomen.mybatis.models.UserMapper.selectUserByID", 1);
-			UserIface userIface = session.getMapper(UserIface.class);
+			UserDaoIface userIface = session.getMapper(UserDaoIface.class);
 			 
 			Users users = new Users();
 			users.setSale(12);
@@ -57,17 +57,17 @@ public class TestMyBatis {
 		}
 	}
 
-	private static void getMutipleSelect(UserIface userIface) {
+	private static void getMutipleSelect(UserDaoIface userIface) {
 		List<Users> userList = userIface.getUserBySaleDepart(0, "Java");
 		System.out.println("size : " + userList.size() );
 	}
 
-	private static void getUserWithArticles(UserIface userIface) {
+	private static void getUserWithArticles(UserDaoIface userIface) {
 		Users users  = userIface.getUserWithArticle(1);
 		System.out.println(users.getUser_name());
 	}
 
-	private static void contentAddressObject(UserIface userIface) {
+	private static void contentAddressObject(UserDaoIface userIface) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("user_id" , 1) ;
 		params.put("address_type" , 1) ;
@@ -79,7 +79,7 @@ public class TestMyBatis {
 		System.out.println("userName : " + user.getUser_name());
 	}
 
-	private static void insertList(UserIface userIface) {
+	private static void insertList(UserDaoIface userIface) {
 		List<Users> insertUsers = new ArrayList<Users>();
 		for(int index = 0 ; index < 2 ; index++ ){
 			Users temp = new Users();
@@ -94,7 +94,7 @@ public class TestMyBatis {
 		userIface.insertUserList(insertParams);
 	}
 
-	private static void insertSingleUser(UserIface userIface) {
+	private static void insertSingleUser(UserDaoIface userIface) {
 		Users temp = new Users();
 		temp.setSale(67);
 		temp.setUser_age(new Random().nextInt(10));
@@ -104,7 +104,7 @@ public class TestMyBatis {
 		System.out.println("Insert UserId : " + temp.getUser_id());
 	}
 
-	private static void mytipleSelect(UserIface userIface) {
+	private static void mytipleSelect(UserDaoIface userIface) {
 		Users user = new Users();
 		user.setDepart("C#");
 		user.setSale(5);

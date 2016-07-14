@@ -2,6 +2,9 @@ package com.jd.bdp.order.contoller;
 
 import java.util.List;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("User")
 public class Users {
 
 	/**

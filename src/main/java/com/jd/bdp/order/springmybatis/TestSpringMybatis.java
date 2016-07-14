@@ -11,7 +11,6 @@ public class TestSpringMybatis {
 		ClassPathXmlApplicationContext appContext = 
 				new ClassPathXmlApplicationContext("spring.xml");
 		OrderServers orderServers = appContext.getBean(OrderServers.class);
-		orderServers.getUser();
- 
+		orderServers.insertUser();
 	}
 }

@@ -3,6 +3,7 @@ package com.jd.bdp.order.mybatis;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.ResultType;
@@ -13,7 +14,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import com.jd.bdp.order.contoller.UserAddress;
 import com.jd.bdp.order.contoller.Users;
 
-public interface UserIface {
+public interface UserDaoIface {
 	
  	public Users selectUserByID(int id);
 	
@@ -45,7 +46,7 @@ public interface UserIface {
  	
  	@Select("select * from users where user_id = #{user_id}")
  	public Users getUserByIdSpring(@Param("user_id") int user_id);
-
+ 	 
 }
 
 
