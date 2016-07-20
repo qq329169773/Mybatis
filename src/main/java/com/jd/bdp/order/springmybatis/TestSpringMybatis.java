@@ -1,23 +1,33 @@
 package com.jd.bdp.order.springmybatis;
 
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.ibatis.io.ResolverUtil;
+import org.apache.ibatis.io.ResolverUtil.Test;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.jd.bdp.order.model.User;
-import com.jd.bdp.order.servers.OrderServers;
 
 public class TestSpringMybatis {
 
- static{
-	 org.apache.ibatis.logging.LogFactory.useLog4JLogging();
- }
-	public static void main(String[] args) {
-
-		ClassPathXmlApplicationContext appContext = 
-				new ClassPathXmlApplicationContext("spring.xml");
-		OrderServers orderServers = appContext.getBean(OrderServers.class);
-		//List<User> userList = orderServers.getUsers(null);
-		
+	static SqlSessionFactory sqlSessionFactory ;
+	static{
+		String resource = "com/jd/bdp/order/springmybatis/mybatis-configration.xml";
+		InputStream inputStream;
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream); 
+		} catch (IOException e) {
+ 			e.printStackTrace();
+		}
 	}
+	
+	public static void main(String[] args) {
+  		SqlSession sqlSession  = sqlSessionFactory.openSession();
+  		Blog object = sqlSession.selectOne("org.mybatis.example.BlogMapper.selectBlog","title");
+  		System.out.println(object.getContent());
+ 	}
 }

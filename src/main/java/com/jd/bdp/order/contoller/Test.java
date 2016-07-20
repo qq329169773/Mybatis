@@ -1,10 +1,5 @@
 package com.jd.bdp.order.contoller;
 
-import java.io.StringWriter;
-
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
 
  
 public class Test {
