@@ -5,10 +5,10 @@
 	<settings>
 		    <setting name="logImpl" value="LOG4J"/>
 	</settings>
+	 <plugins>
+    	<plugin interceptor="com.jd.bdp.basic.PageCtrlInterceptor"></plugin>
+    </plugins>
     <mappers>
         <mapper resource="mybatis/User.xml"/>
     </mappers>
-    <plugins>
-    	<plugin interceptor=""></plugin>
-    </plugins>
 </configuration>
