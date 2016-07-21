@@ -2,10 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
   
 <mapper namespace="org.mybatis.example.BlogMapper">
+
+	<resultMap type="blog" id="fixBlog">
+		<id column="id" property="id"/>
+		<result column="title" property="title" typeHandler="com.jd.bdp.order.springmybatis.ExampleTypeHandler"/>
+		<result column="content" property="content" typeHandler="com.jd.bdp.order.springmybatis.ExampleTypeHandler"/>
+	</resultMap>
 	<select id="selectBlog" resultType="Blog">
 		select * from blog where title = #{title}
 	</select>
+	<update id="updateBlog">
+		update blog 
+		<set>
+			<if test="title != null">title  = #{title} ,</if>
+			<if test="content != null">content = #{content} </if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+ 	</update>
 </mapper>

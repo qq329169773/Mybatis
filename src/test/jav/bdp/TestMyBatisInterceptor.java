@@ -1,4 +1,4 @@
-package bdp;
+/*package bdp;
 
 import java.io.Reader;
 
@@ -42,11 +42,11 @@ public class TestMyBatis {
 	}
 	@Test
 	public void testMutipleContent() {
-	/*	UserIface userIface = session.getMapper(UserIface.class);
+		UserIface userIface = session.getMapper(UserIface.class);
 		Users param = new Users();
 		param.setDepart("JAVA");
 		List<Users> user = userIface.mutipleSelect();
-		System.out.println(user);*/
+		System.out.println(user);
  	}
 	@After
 	public void after(){
@@ -54,3 +54,4 @@ public class TestMyBatis {
 	}
 
 }
+*/

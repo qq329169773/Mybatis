@@ -27,7 +27,12 @@ public class TestSpringMybatis {
 	
 	public static void main(String[] args) {
   		SqlSession sqlSession  = sqlSessionFactory.openSession();
-  		Blog object = sqlSession.selectOne("org.mybatis.example.BlogMapper.selectBlog","title");
-  		System.out.println(object.getContent());
- 	}
+  		//Blog object = sqlSession.selectOne("org.mybatis.example.BlogMapper.selectBlog","title");
+  		Blog updateBlog = new Blog();
+  		updateBlog.setId(1);
+  		updateBlog.setContent("nihaozhnagrui");
+  		updateBlog.setTitle("updateTitle");
+  		sqlSession.update("org.mybatis.example.BlogMapper.updateBlog",updateBlog);
+  		sqlSession.commit();
+	}
 }
