@@ -1,4 +1,4 @@
-package com.jd.bdp.order.contoller;
+package com.jd.bdp.order.model;
 
 import org.apache.ibatis.type.Alias;
 

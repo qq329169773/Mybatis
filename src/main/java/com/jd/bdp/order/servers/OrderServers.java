@@ -1,36 +1,41 @@
 package com.jd.bdp.order.servers;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jd.bdp.order.contoller.Users;
-import com.jd.bdp.order.mybatis.CopyOfUserDaoIface;
-import com.jd.bdp.order.mybatis.UserDaoIface;
+import com.jd.bdp.order.dao.UserDaoIface;
+import com.jd.bdp.order.model.User;
 
 @Service
 @Transactional
 public class OrderServers {
 
+ 
+	
+	private static final Logger logger = Logger.getLogger(OrderServers.class);
 	@Autowired
 	private UserDaoIface userDao ;
 	
-	@Autowired
-	private CopyOfUserDaoIface  UserDaoIfa ;
 	
-	public void getUser(){
-		Users users = userDao.getUserByIdSpring(1);
-		System.out.println(users.getUser_id() + " :" + users.getUser_name());
+	public List<User> getUsers(){
+		
+		 return userDao.getUsers();
+//		return pageCtrl ;
  	}
-	public long insertUser(){
-		Users users = new Users();
-		users.setSale(23);
-		users.setEmail("3434");
-		users.setUser_name("343434");
-		userDao.insertUserSingle(users);
-		System.out.println("insert user id : " + users.getUser_id() );
-		UserDaoIfa.save();
- 		int i = 1 / 0 ;
-		return users.getUser_id() ;
+	
+	public User insertUser(){
+		System.out.println("insert");
+		logger.error("insert");
+		User user = new User();
+		user.setSale(23);
+		user.setDepart("JAVA"); 
+		user.setUserName("zhangrui");
+		userDao.insertUserSingle(user);
+		return user ;
 	}
+ 
 }

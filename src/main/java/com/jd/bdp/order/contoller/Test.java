@@ -11,7 +11,7 @@ public class Test {
 
 	public static final String userInfo = "userInfo.vm";
 	public static void main(String[] args) {
-		VelocityEngine ve = new VelocityEngine();
+		/*VelocityEngine ve = new VelocityEngine();
 		ve.init();
 
 		Template template = ve.getTemplate(userInfo);
@@ -21,6 +21,6 @@ public class Test {
 		StringWriter stringWriter = new StringWriter();
 		template.merge(velocityContext, stringWriter);
 
-		System.out.println(stringWriter.toString());
+		System.out.println(stringWriter.toString());*/
 	}
 }

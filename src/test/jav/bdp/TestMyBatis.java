@@ -1,21 +1,14 @@
 package bdp;
 
-import static org.junit.Assert.*;
-
 import java.io.Reader;
-import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.jd.bdp.order.contoller.Users;
-import com.jd.bdp.order.mybatis.UserDaoIface;
 
 public class TestMyBatis {
 
@@ -45,9 +38,7 @@ public class TestMyBatis {
 	
 	@Test
 	public void test() {
-		UserDaoIface userIface = session.getMapper(UserDaoIface.class);
-		Users user = userIface.selectUserByID(1);
-		System.out.println(user.getUser_name() + " "+ user.getSale());
+	 
 	}
 	@Test
 	public void testMutipleContent() {
