@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   
-<mapper namespace="org.mybatis.example.BlogMapper">
+<mapper namespace="com.jd.bdp.order.springmybatis.BlogDaoInterface">
 
 	<resultMap type="blog" id="fixBlog">
 		<id column="id" property="id"/>
@@ -24,4 +24,9 @@
 			id = #{id}
 		</where>
  	</update>
+ 	
+ 	<insert id="insertBlog" parameterType="blog" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+  		insert blog(title,content,user) 
+ 		values (#{title},#{content},#{user})
+ 	</insert>
 </mapper>

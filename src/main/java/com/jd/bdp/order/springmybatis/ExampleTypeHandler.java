@@ -11,7 +11,9 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 import org.apache.ibatis.type.StringTypeHandler;
- 
+
+@MappedJdbcTypes(JdbcType.VARCHAR)
+@MappedTypes(String.class)
 public class ExampleTypeHandler extends BaseTypeHandler<String>{
 
 	 @Override
@@ -22,18 +24,20 @@ public class ExampleTypeHandler extends BaseTypeHandler<String>{
 
 	  @Override
 	  public String getNullableResult(ResultSet rs, String columnName) throws SQLException {
-			 
+			 System.out.println("get1");
  	    return null ;
 	  }
 
 	  @Override
 	  public String getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
- 
+			 System.out.println("get2");
 			  return null ;
 	  }
 
 	  @Override
 	  public String getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+			 System.out.println("get3");
+
 		  return null ;
 	  }
 
